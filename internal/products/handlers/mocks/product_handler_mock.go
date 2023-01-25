@@ -32,3 +32,14 @@ func (m *MockProductService) Get(ctx context.Context, uid uuid.UUID) (*model.Pro
 
 	return r0, r1
 }
+
+func (m *MockProductService) Create(ctx context.Context, product *model.Product) error {
+	ret := m.Called(ctx, product)
+
+	var r0 error
+	if ret.Get(0) != nil {
+		r0 = ret.Get(0).(error)
+	}
+
+	return r0
+}

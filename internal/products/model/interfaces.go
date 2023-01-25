@@ -12,11 +12,12 @@ type ProductService interface {
 	Get(ctx context.Context, uid uuid.UUID) (*Product, error)
 	// Update(ctx context.Context, uid uuid.UUID) (*Product, error)
 	// Delete(ctx context.Context, uid uuid.UUID) (*Product, error)
-	// Create(ctx context.Context, uid *Product) (*Product, error)
+	Create(ctx context.Context, product *Product) error
 }
 
 // ProductRepository defines methods the service layer expects
 // any repository it interacts with to implement
 type ProductRepository interface {
 	FindByID(ctx context.Context, uid uuid.UUID) (*Product, error)
+	CreateProduct(ctx context.Context, product *Product) error
 }

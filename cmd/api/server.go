@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/signal"
 	"products/internal/products/handlers"
+	"products/internal/products/service"
 	"syscall"
 	"time"
 
@@ -15,8 +16,18 @@ import (
 
 func InitializeServer() *http.Server {
 	router := gin.Default()
+	// will initialize a handler starting from data sources
+	// which inject into repository layer
+
+	// productRepository := repository.NewProductRepository(d.DB)
+
+	// which inject into service layer
+
+	productService := service.NewProductService(&service.ProductConfig{})
+	// which inject into handler layer
 	handlers.NewHandler(&handlers.Config{
-		R: router,
+		R:              router,
+		ProductService: productService,
 	})
 
 	srv := &http.Server{

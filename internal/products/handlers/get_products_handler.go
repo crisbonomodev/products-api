@@ -19,7 +19,8 @@ func (h *Handler) GetProducts(c *gin.Context) {
 		log.Printf("Unable to cast string to UUID: %v\n", c)
 	}
 	// gin.Context satisfies go's context.Context interface
-	p, err := h.ProductService.Get(c, uid)
+	ctx := c.Request.Context()
+	p, err := h.ProductService.Get(ctx, uid)
 
 	if err != nil {
 		log.Printf("Unable to find user: %v\n%v", p, err)
