@@ -6,13 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Handler struct holds required services for handler to function
+// Handler struct contiene los servicios necesarios para que el Handler funcione
 type Handler struct {
 	ProductService model.ProductService
 }
 
-// Config will hold services that will eventually be injected into this
-// handler layer on handler initialization
+// Config contiene las interfaces de los servicios que van a ser injectados en el handler cuando se inicialice
 type Config struct {
 	R              *gin.Engine
 	ProductService model.ProductService
@@ -26,8 +25,6 @@ func NewHandler(c *Config) {
 	}
 
 	v1 := c.R.Group("/api/v1")
-	{
-		v1.GET("/products/:id", h.GetProducts)
-		v1.POST("/products", h.CreateProduct)
-	}
+	v1.GET("/products/:id", h.GetProducts)
+	v1.POST("/products", h.CreateProduct)
 }
